@@ -33,5 +33,5 @@ Vagrant.configure(2) do |config|
 
 
   # Run a script when vm initialize
-  config.vm.provision :shell, :path => "vagrant-setup/setup-k8s.sh"
+  config.vm.provision :shell, :path => "setup-k8s.sh"
 end
