@@ -17,11 +17,12 @@ Vagrant.configure(2) do |config|
       node.vm.network "private_network", ip: "172.16.0.20#{i}"
       node.ssh.forward_agent = true
 
-      node.vm.network "forwarded_port", guest: 30000, host: 13000   # frontend-app
-      node.vm.network "forwarded_port", guest: 8080, host: 18080    # backend-app
+      node.vm.network "forwarded_port", guest: 30000, host: 13000   # application external access port
+      node.vm.network "forwarded_port", guest: 8080, host: 18080    # application external access port
       node.vm.network "forwarded_port", guest: 16443, host: 16443   # k8s api [hit command: microk8s.kubectl get config view]
       node.vm.network "forwarded_port", guest: 8001, host: 8001     # k8s ui
 
+      node.vm.synced_folder "data-vagrant", "/home/data-vagrant"    # share local directory into the VM
       node.vm.provider "virtualbox" do |v|
         v.name = "k8s#{NodeName}0#{i}"
         v.memory = 2048
