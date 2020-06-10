@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  #type: NodePort
+  #type: ClusterIP
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      #======== Inside the cluster, what port does the service expose?
+      port: 80
+      #======== Which port do pods selected by this service expose?, it auto mapped with port
+      #======== In ClusterIP After change targetPort service won't access, Otherwise access by <service-cluster-ip>
+      #======== This port is using for image internal communication, not exposed for outer.
+      #targetPort: 80
+      #======== Which port on the node is the service available through? [It only active when Type NodePort Selected]
+      #nodePort: 30000
